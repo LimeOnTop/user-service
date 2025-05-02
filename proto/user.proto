@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "user-service/gen/user";
+
+service UserService {
+    rpc GetUserProducts (UserRequest) returns (GetProductsResponse);
+    rpc GetUserPreference (UserRequest) returns (GetPreferenceResponse);
+    rpc UpdateUserPreference (UpdatePreferenceRequest) returns (UpdatePreferenceResponse);
+    rpc AddUserProduct (AddProductRequest) returns (AddProductResponse);
+    rpc RemoveUserProduct (RemoveProductRequest) returns (RemoveProductResponse);
+}
+
+message UpdatePreferenceRequest {
+    string preference = 1;
+}
+
+message RemoveProductRequest {
+    string product_name = 1;
+}
+
+message AddProductRequest {
+    string product_name = 1;
+}
+
+message UserRequest {}
+
+message GetProductsResponse {
+    repeated string product_names = 1;
+}
+
+message GetPreferenceResponse {
+    string preference = 1;
+}
+
+message AddProductResponse {
+    bool success = 1;
+}
+
+message RemoveProductResponse {
+    bool success = 1;
+}
+
+message UpdatePreferenceResponse {
+    bool success = 1;
+}

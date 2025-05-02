@@ -1,0 +1,24 @@
+app:
+  name: "user-service"
+  version: "1.0.0"
+
+grpc:
+  port: 50051
+  timeout: 30
+
+logger:
+  level: "debug"
+
+postgres:
+  port: 5432
+  pg_user: "postgres"
+  pg_password: "password"
+  pg_host: "localhost"
+  pg_db_name: "postgres"
+  db_max_connections: 2
+  db_connection_timeout: 5
+
+migrations:
+  path: "./migrations"
+
+

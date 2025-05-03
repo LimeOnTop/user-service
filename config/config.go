@@ -60,7 +60,7 @@ func (pc PGConfig) MigrationsUrl() string {
 
 func NewConfig() (*Config, error) {
 	cfg := &Config{}
-	err := cleanenv.ReadConfig("./config/config.yml", cfg)
+	err := cleanenv.ReadConfig("./config/config.yaml", cfg)
 	if err != nil {
 		log.Fatalf("Failed to read config file: %v", err)
 		return nil, err

@@ -21,8 +21,8 @@ type (
 		Version string `yaml:"version"`
 	}
 	GRPCConfig struct {
-		Port    int           `yaml:"port"`
-		Timeout time.Duration `yaml:"timeout"`
+		Port    int `yaml:"port"`
+		Timeout int `yaml:"timeout"`
 	}
 
 	LogConfig struct {

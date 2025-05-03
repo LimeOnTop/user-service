@@ -3,43 +3,28 @@ package usecase
 import (
 	"context"
 	"errors"
-	"fmt"
-	"strings"
-	"time"
 
+	"github.com/google/uuid"
+	"user-service/internal/adapter/token"
 	"user-service/internal/repository"
-
-	"google.golang.org/grpc/internal/metadata"
-
-	"github.com/golang-jwt/jwt/v5"
 )
 
 // Список ошибок
 var (
-	// ErrUserNotFound - ошибка, когда пользователь не найден
-	ErrUserNotFound = errors.New("user not found")
-	// ErrProductNotFound - ошибка, когда продукт не найден
-	ErrProductNotFound = errors.New("product not found")
-	// ErrPreferenceNotFound - ошибка, когда предпочтение не найдено
-	ErrPreferenceNotFound = errors.New("preference not found")
-	// ErrProductAlreadyExists - ошибка, когда продукт уже существует
-	ErrProductAlreadyExists = errors.New("product already exists")
-	// ErrMetadataNotFound - ошибка, когда метаданные не найдены
-	ErrMetadataNotFound = errors.New("metadata not found")
-	// ErrTokenNotFound - ошибка, когда токен не найден
-	ErrTokenNotFound = errors.New("token not found")
+	// ErrInvalidToken - ошибка, когда токен недействителен
+	ErrInvalidToken = errors.New("invalid token")
 )
 
-var _ UserUsecase = (*user)(nil)
+var _ UserUseCase = (*user)(nil)
 
 // UserUsecase - интерфейс для работы с пользователями
-type UserUsecase interface {
+type UserUseCase interface {
 	// GetUserProducts - получить список продуктов пользователя
-	GetUserProducts(accessToken string) (productName map[string]string, err error)
+	GetUserProducts(accessToken string) (products []string, err error)
 	// GetUserPreference - получить предпочтения пользователя
-	GetUserPreference(accessToken string) (preference string, err error)
+	GetUserPreference(accessToken string) (preferenceName string, err error)
 	// UpdateUserPreference - обновить предпочтения пользователя
-	UpdateUserPreference(accessToken string, preference string) (err error)
+	UpdateUserPreference(accessToken string, preferenceName string) (err error)
 	// AddUserProduct - добавить продукт пользователю
 	AddUserProduct(accessToken string, productName string) (err error)
 	// RemoveUserProduct - удалить продукт у пользователя
@@ -47,62 +32,92 @@ type UserUsecase interface {
 }
 
 type user struct {
-	userRepo repository.Repository
+	userRepo     repository.Repository
+	tokenService token.Token
 }
 
 // New - конструктор для создания нового экземпляра UserUsecase
-func New(userRepo repository.Repository) *user {
+func New(userRepo repository.Repository, tokenService token.Token) *user {
 	return &user{
-		userRepo: userRepo,
+		userRepo:     userRepo,
+		tokenService: tokenService,
 	}
 }
 
-func (u *user) GetUserProducts(accessToken string) (productName map[string]string, err error) {
+func (u *user) GetUserProducts(accessToken string) (products []string, err error) {
+	userId, err := u.extractUserIdFromToken(accessToken)
+	if err != nil {
+		return nil, err
+	}
 
+	products, err = u.userRepo.GetProducts(context.Background(), userId.String())
+	if err != nil {
+		return nil, err
+	}
+
+	return products, nil
 }
 
-func (u *user) GetUserPreference(accessToken string) (preference string, err error) {
+func (u *user) GetUserPreference(accessToken string) (preferenceName string, err error) {
+	userId, err := u.extractUserIdFromToken(accessToken)
+	if err != nil {
+		return "", err
+	}
 
+	preferenceName, err = u.userRepo.GetPreference(context.Background(), userId.String())
+	if err != nil {
+		return "", err
+	}
+
+	return preferenceName, nil
 }
 
-func (u *user) UpdateUserPreference(accessToken string, preference string) (err error) {
+func (u *user) UpdateUserPreference(accessToken string, preferenceName string) (err error) {
+	userId, err := u.extractUserIdFromToken(accessToken)
+	if err != nil {
+		return err
+	}
+	err = u.userRepo.UpdatePreference(context.Background(), userId.String(), preferenceName)
 
+	return err
 }
 
 func (u *user) AddUserProduct(accessToken string, productName string) (err error) {
+	userId, err := u.extractUserIdFromToken(accessToken)
+	if err != nil {
+		return err
+	}
+	err = u.userRepo.AddProduct(context.Background(), userId.String(), productName)
+	if err != nil {
+		return err
+	}
 
+	return nil
 }
 
 func (u *user) RemoveUserProduct(accessToken string, productName string) (err error) {
+	userId, err := u.extractUserIdFromToken(accessToken)
+	if err != nil {
+		return err
+	}
+	err = u.userRepo.RemoveProduct(context.Background(), userId.String(), productName)
+	if err != nil {
+		return err
+	}
 
+	return nil
 }
 
 // extractUserIdFromToken - функция для извлечения id пользователя из токена
-func extractUserIdFromToken(ctx context.Context) (string, error) {
-	md, ok := metadata.FromIncomingContext(ctx)
-	if !ok {
-		return "", ErrMetadataNotFound
+func (u *user) extractUserIdFromToken(accessToken string) (uuid.UUID, error) {
+	valid, userId, err := u.tokenService.ValidateToken(accessToken)
+
+	if !valid {
+		return uuid.Nil, err
 	}
 
-	authHeader := md.Get("authorization")
-
-	tokenString := strings.TrimPrefix(authHeader[0], "Bearer ")
-	if tokenString == "" {
-		return "", ErrTokenNotFound
+	if err != nil {
+		return uuid.Nil, err
 	}
-
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-		}
-		return []byte("secret"), nil
-	})
-
-	userId, ok := token.Claims.(jwt.MapClaims)["user_id"].(string)
-
-	if !ok {
-		return "", ErrUserNotFound
-	}
-
 	return userId, nil
 }

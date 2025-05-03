@@ -22,10 +22,11 @@ const (
 )
 
 type UpdatePreferenceRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Preference    string                 `protobuf:"bytes,1,opt,name=preference,proto3" json:"preference,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken    string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	PreferenceName string                 `protobuf:"bytes,2,opt,name=preference_name,json=preferenceName,proto3" json:"preference_name,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *UpdatePreferenceRequest) Reset() {
@@ -58,16 +59,24 @@ func (*UpdatePreferenceRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *UpdatePreferenceRequest) GetPreference() string {
+func (x *UpdatePreferenceRequest) GetAccessToken() string {
 	if x != nil {
-		return x.Preference
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *UpdatePreferenceRequest) GetPreferenceName() string {
+	if x != nil {
+		return x.PreferenceName
 	}
 	return ""
 }
 
 type RemoveProductRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ProductName   string                 `protobuf:"bytes,1,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	ProductName   string                 `protobuf:"bytes,2,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -102,6 +111,13 @@ func (*RemoveProductRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{1}
 }
 
+func (x *RemoveProductRequest) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
 func (x *RemoveProductRequest) GetProductName() string {
 	if x != nil {
 		return x.ProductName
@@ -111,7 +127,8 @@ func (x *RemoveProductRequest) GetProductName() string {
 
 type AddProductRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ProductName   string                 `protobuf:"bytes,1,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	ProductName   string                 `protobuf:"bytes,2,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -146,6 +163,13 @@ func (*AddProductRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{2}
 }
 
+func (x *AddProductRequest) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
 func (x *AddProductRequest) GetProductName() string {
 	if x != nil {
 		return x.ProductName
@@ -155,6 +179,7 @@ func (x *AddProductRequest) GetProductName() string {
 
 type UserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -187,6 +212,13 @@ func (x *UserRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use UserRequest.ProtoReflect.Descriptor instead.
 func (*UserRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UserRequest) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
 }
 
 type GetProductsResponse struct {
@@ -234,10 +266,10 @@ func (x *GetProductsResponse) GetProductNames() []string {
 }
 
 type GetPreferenceResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Preference    string                 `protobuf:"bytes,1,opt,name=preference,proto3" json:"preference,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	PreferenceName string                 `protobuf:"bytes,1,opt,name=preference_name,json=preferenceName,proto3" json:"preference_name,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *GetPreferenceResponse) Reset() {
@@ -270,9 +302,9 @@ func (*GetPreferenceResponse) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *GetPreferenceResponse) GetPreference() string {
+func (x *GetPreferenceResponse) GetPreferenceName() string {
 	if x != nil {
-		return x.Preference
+		return x.PreferenceName
 	}
 	return ""
 }
@@ -414,22 +446,22 @@ var File_user_proto protoreflect.FileDescriptor
 const file_user_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"user.proto\x12\x04user\"9\n" +
-	"\x17UpdatePreferenceRequest\x12\x1e\n" +
-	"\n" +
-	"preference\x18\x01 \x01(\tR\n" +
-	"preference\"9\n" +
+	"user.proto\x12\x04user\"e\n" +
+	"\x17UpdatePreferenceRequest\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12'\n" +
+	"\x0fpreference_name\x18\x02 \x01(\tR\x0epreferenceName\"\\\n" +
 	"\x14RemoveProductRequest\x12!\n" +
-	"\fproduct_name\x18\x01 \x01(\tR\vproductName\"6\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12!\n" +
+	"\fproduct_name\x18\x02 \x01(\tR\vproductName\"Y\n" +
 	"\x11AddProductRequest\x12!\n" +
-	"\fproduct_name\x18\x01 \x01(\tR\vproductName\"\r\n" +
-	"\vUserRequest\":\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12!\n" +
+	"\fproduct_name\x18\x02 \x01(\tR\vproductName\"0\n" +
+	"\vUserRequest\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\":\n" +
 	"\x13GetProductsResponse\x12#\n" +
-	"\rproduct_names\x18\x01 \x03(\tR\fproductNames\"7\n" +
-	"\x15GetPreferenceResponse\x12\x1e\n" +
-	"\n" +
-	"preference\x18\x01 \x01(\tR\n" +
-	"preference\".\n" +
+	"\rproduct_names\x18\x01 \x03(\tR\fproductNames\"@\n" +
+	"\x15GetPreferenceResponse\x12'\n" +
+	"\x0fpreference_name\x18\x01 \x01(\tR\x0epreferenceName\".\n" +
 	"\x12AddProductResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"1\n" +
 	"\x15RemoveProductResponse\x12\x18\n" +

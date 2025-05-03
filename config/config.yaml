@@ -9,6 +9,9 @@ grpc:
 logger:
   level: "debug"
 
+token:
+  secret: "my-secret-key"
+
 postgres:
   port: 5432
   pg_user: "postgres"

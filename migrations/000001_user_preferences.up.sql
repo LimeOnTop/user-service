@@ -1,8 +1,6 @@
 CREATE TABLE IF NOT EXISTS user_preferences (
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    preference_key VARCHAR(255) NOT NULL,
-    preference_value TEXT,
+    user_id INT PRIMARY KEY,
+    preference_name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

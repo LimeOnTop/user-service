@@ -12,6 +12,7 @@ type (
 		App        AppConfig        `yaml:"app"`
 		GRPC       GRPCConfig       `yaml:"grpc"`
 		Log        LogConfig        `yaml:"logger"`
+		Token      TokenConfig      `yaml:"token"`
 		PG         PGConfig         `yaml:"postgres"`
 		Migrations MigrationsConfig `yaml:"migrations"`
 	}
@@ -26,6 +27,10 @@ type (
 
 	LogConfig struct {
 		Level string `yaml:"level"`
+	}
+
+	TokenConfig struct {
+		Secret string `yaml:"secret"`
 	}
 
 	PGConfig struct {

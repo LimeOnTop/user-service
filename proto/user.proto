@@ -13,25 +13,30 @@ service UserService {
 }
 
 message UpdatePreferenceRequest {
-    string preference = 1;
+    string access_token = 1;
+    string preference_name = 2;
 }
 
 message RemoveProductRequest {
-    string product_name = 1;
+    string access_token = 1;
+    string product_name = 2;
 }
 
 message AddProductRequest {
-    string product_name = 1;
+    string access_token = 1;
+    string product_name = 2;
 }
 
-message UserRequest {}
+message UserRequest {
+    string access_token = 1;
+}
 
 message GetProductsResponse {
     repeated string product_names = 1;
 }
 
 message GetPreferenceResponse {
-    string preference = 1;
+    string preference_name = 1;
 }
 
 message AddProductResponse {

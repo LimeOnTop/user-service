@@ -5,13 +5,9 @@ MIGRATIONS_DIR=migrations
 # Генерация контрактов
 proto-generate:
 	protoc --proto_path=proto \
-		--go_out=gen/auth --go_opt=paths=source_relative \
-		--go-grpc_out=gen/auth --go-grpc_opt=paths=source_relative \
-		proto/auth.proto
-
-# Генерация секретного ключа (пока тестовое исполнение)
-generate-key:
-	go run cmd/generate-key/generate_key.go
+		--go_out=gen/user --go_opt=paths=source_relative \
+		--go-grpc_out=gen/user --go-grpc_opt=paths=source_relative \
+		proto/user.proto
 
 # Тестирование
 test:

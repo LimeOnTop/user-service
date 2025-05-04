@@ -55,6 +55,7 @@ message RemoveProductResponse {
 message UpdatePreferenceResponse {
     bool success = 1;
 }
+
 message RemovePreferenceResponse {
     bool success = 1;
 }

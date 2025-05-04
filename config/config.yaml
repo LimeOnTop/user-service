@@ -13,7 +13,7 @@ token:
   secret: "my-secret-key"
 
 postgres:
-  port: 5432
+  port: 5433
   pg_user: "postgres"
   pg_password: "password"
   pg_host: "localhost"

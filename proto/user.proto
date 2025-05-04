@@ -7,9 +7,10 @@ option go_package = "user-service/gen/user";
 service UserService {
     rpc GetUserProducts (UserRequest) returns (GetProductsResponse);
     rpc GetUserPreference (UserRequest) returns (GetPreferenceResponse);
-    rpc UpdateUserPreference (UpdatePreferenceRequest) returns (UpdatePreferenceResponse);
     rpc AddUserProduct (AddProductRequest) returns (AddProductResponse);
     rpc RemoveUserProduct (RemoveProductRequest) returns (RemoveProductResponse);
+    rpc UpdateUserPreference (UpdatePreferenceRequest) returns (UpdatePreferenceResponse);
+    rpc RemoveUserPreference (RemovePreferenceRequest) returns (RemovePreferenceResponse);
 }
 
 message UpdatePreferenceRequest {
@@ -25,6 +26,10 @@ message RemoveProductRequest {
 message AddProductRequest {
     string access_token = 1;
     string product_name = 2;
+}
+
+message RemovePreferenceRequest {
+    string access_token = 1;
 }
 
 message UserRequest {
@@ -50,3 +55,7 @@ message RemoveProductResponse {
 message UpdatePreferenceResponse {
     bool success = 1;
 }
+message RemovePreferenceResponse {
+    bool success = 1;
+}
+

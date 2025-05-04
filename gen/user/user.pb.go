@@ -177,6 +177,50 @@ func (x *AddProductRequest) GetProductName() string {
 	return ""
 }
 
+type RemovePreferenceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemovePreferenceRequest) Reset() {
+	*x = RemovePreferenceRequest{}
+	mi := &file_user_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemovePreferenceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemovePreferenceRequest) ProtoMessage() {}
+
+func (x *RemovePreferenceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemovePreferenceRequest.ProtoReflect.Descriptor instead.
+func (*RemovePreferenceRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RemovePreferenceRequest) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
 type UserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
@@ -186,7 +230,7 @@ type UserRequest struct {
 
 func (x *UserRequest) Reset() {
 	*x = UserRequest{}
-	mi := &file_user_proto_msgTypes[3]
+	mi := &file_user_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -198,7 +242,7 @@ func (x *UserRequest) String() string {
 func (*UserRequest) ProtoMessage() {}
 
 func (x *UserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[3]
+	mi := &file_user_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -211,7 +255,7 @@ func (x *UserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRequest.ProtoReflect.Descriptor instead.
 func (*UserRequest) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{3}
+	return file_user_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UserRequest) GetAccessToken() string {
@@ -230,7 +274,7 @@ type GetProductsResponse struct {
 
 func (x *GetProductsResponse) Reset() {
 	*x = GetProductsResponse{}
-	mi := &file_user_proto_msgTypes[4]
+	mi := &file_user_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -242,7 +286,7 @@ func (x *GetProductsResponse) String() string {
 func (*GetProductsResponse) ProtoMessage() {}
 
 func (x *GetProductsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[4]
+	mi := &file_user_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -255,7 +299,7 @@ func (x *GetProductsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductsResponse.ProtoReflect.Descriptor instead.
 func (*GetProductsResponse) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{4}
+	return file_user_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetProductsResponse) GetProductNames() []string {
@@ -274,7 +318,7 @@ type GetPreferenceResponse struct {
 
 func (x *GetPreferenceResponse) Reset() {
 	*x = GetPreferenceResponse{}
-	mi := &file_user_proto_msgTypes[5]
+	mi := &file_user_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -286,7 +330,7 @@ func (x *GetPreferenceResponse) String() string {
 func (*GetPreferenceResponse) ProtoMessage() {}
 
 func (x *GetPreferenceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[5]
+	mi := &file_user_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -299,7 +343,7 @@ func (x *GetPreferenceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPreferenceResponse.ProtoReflect.Descriptor instead.
 func (*GetPreferenceResponse) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{5}
+	return file_user_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetPreferenceResponse) GetPreferenceName() string {
@@ -318,7 +362,7 @@ type AddProductResponse struct {
 
 func (x *AddProductResponse) Reset() {
 	*x = AddProductResponse{}
-	mi := &file_user_proto_msgTypes[6]
+	mi := &file_user_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -330,7 +374,7 @@ func (x *AddProductResponse) String() string {
 func (*AddProductResponse) ProtoMessage() {}
 
 func (x *AddProductResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[6]
+	mi := &file_user_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +387,7 @@ func (x *AddProductResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddProductResponse.ProtoReflect.Descriptor instead.
 func (*AddProductResponse) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{6}
+	return file_user_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AddProductResponse) GetSuccess() bool {
@@ -362,7 +406,7 @@ type RemoveProductResponse struct {
 
 func (x *RemoveProductResponse) Reset() {
 	*x = RemoveProductResponse{}
-	mi := &file_user_proto_msgTypes[7]
+	mi := &file_user_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -374,7 +418,7 @@ func (x *RemoveProductResponse) String() string {
 func (*RemoveProductResponse) ProtoMessage() {}
 
 func (x *RemoveProductResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[7]
+	mi := &file_user_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -387,7 +431,7 @@ func (x *RemoveProductResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveProductResponse.ProtoReflect.Descriptor instead.
 func (*RemoveProductResponse) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{7}
+	return file_user_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *RemoveProductResponse) GetSuccess() bool {
@@ -406,7 +450,7 @@ type UpdatePreferenceResponse struct {
 
 func (x *UpdatePreferenceResponse) Reset() {
 	*x = UpdatePreferenceResponse{}
-	mi := &file_user_proto_msgTypes[8]
+	mi := &file_user_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -418,7 +462,7 @@ func (x *UpdatePreferenceResponse) String() string {
 func (*UpdatePreferenceResponse) ProtoMessage() {}
 
 func (x *UpdatePreferenceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[8]
+	mi := &file_user_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -431,10 +475,54 @@ func (x *UpdatePreferenceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePreferenceResponse.ProtoReflect.Descriptor instead.
 func (*UpdatePreferenceResponse) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{8}
+	return file_user_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *UpdatePreferenceResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type RemovePreferenceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemovePreferenceResponse) Reset() {
+	*x = RemovePreferenceResponse{}
+	mi := &file_user_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemovePreferenceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemovePreferenceResponse) ProtoMessage() {}
+
+func (x *RemovePreferenceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemovePreferenceResponse.ProtoReflect.Descriptor instead.
+func (*RemovePreferenceResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *RemovePreferenceResponse) GetSuccess() bool {
 	if x != nil {
 		return x.Success
 	}
@@ -455,7 +543,9 @@ const file_user_proto_rawDesc = "" +
 	"\fproduct_name\x18\x02 \x01(\tR\vproductName\"Y\n" +
 	"\x11AddProductRequest\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12!\n" +
-	"\fproduct_name\x18\x02 \x01(\tR\vproductName\"0\n" +
+	"\fproduct_name\x18\x02 \x01(\tR\vproductName\"<\n" +
+	"\x17RemovePreferenceRequest\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"0\n" +
 	"\vUserRequest\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\":\n" +
 	"\x13GetProductsResponse\x12#\n" +
@@ -467,13 +557,16 @@ const file_user_proto_rawDesc = "" +
 	"\x15RemoveProductResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"4\n" +
 	"\x18UpdatePreferenceResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xfd\x02\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"4\n" +
+	"\x18RemovePreferenceResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xd4\x03\n" +
 	"\vUserService\x12?\n" +
 	"\x0fGetUserProducts\x12\x11.user.UserRequest\x1a\x19.user.GetProductsResponse\x12C\n" +
-	"\x11GetUserPreference\x12\x11.user.UserRequest\x1a\x1b.user.GetPreferenceResponse\x12U\n" +
-	"\x14UpdateUserPreference\x12\x1d.user.UpdatePreferenceRequest\x1a\x1e.user.UpdatePreferenceResponse\x12C\n" +
+	"\x11GetUserPreference\x12\x11.user.UserRequest\x1a\x1b.user.GetPreferenceResponse\x12C\n" +
 	"\x0eAddUserProduct\x12\x17.user.AddProductRequest\x1a\x18.user.AddProductResponse\x12L\n" +
-	"\x11RemoveUserProduct\x12\x1a.user.RemoveProductRequest\x1a\x1b.user.RemoveProductResponseB\x17Z\x15user-service/gen/userb\x06proto3"
+	"\x11RemoveUserProduct\x12\x1a.user.RemoveProductRequest\x1a\x1b.user.RemoveProductResponse\x12U\n" +
+	"\x14UpdateUserPreference\x12\x1d.user.UpdatePreferenceRequest\x1a\x1e.user.UpdatePreferenceResponse\x12U\n" +
+	"\x14RemoveUserPreference\x12\x1d.user.RemovePreferenceRequest\x1a\x1e.user.RemovePreferenceResponseB\x17Z\x15user-service/gen/userb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -487,34 +580,38 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_user_proto_goTypes = []any{
 	(*UpdatePreferenceRequest)(nil),  // 0: user.UpdatePreferenceRequest
 	(*RemoveProductRequest)(nil),     // 1: user.RemoveProductRequest
 	(*AddProductRequest)(nil),        // 2: user.AddProductRequest
-	(*UserRequest)(nil),              // 3: user.UserRequest
-	(*GetProductsResponse)(nil),      // 4: user.GetProductsResponse
-	(*GetPreferenceResponse)(nil),    // 5: user.GetPreferenceResponse
-	(*AddProductResponse)(nil),       // 6: user.AddProductResponse
-	(*RemoveProductResponse)(nil),    // 7: user.RemoveProductResponse
-	(*UpdatePreferenceResponse)(nil), // 8: user.UpdatePreferenceResponse
+	(*RemovePreferenceRequest)(nil),  // 3: user.RemovePreferenceRequest
+	(*UserRequest)(nil),              // 4: user.UserRequest
+	(*GetProductsResponse)(nil),      // 5: user.GetProductsResponse
+	(*GetPreferenceResponse)(nil),    // 6: user.GetPreferenceResponse
+	(*AddProductResponse)(nil),       // 7: user.AddProductResponse
+	(*RemoveProductResponse)(nil),    // 8: user.RemoveProductResponse
+	(*UpdatePreferenceResponse)(nil), // 9: user.UpdatePreferenceResponse
+	(*RemovePreferenceResponse)(nil), // 10: user.RemovePreferenceResponse
 }
 var file_user_proto_depIdxs = []int32{
-	3, // 0: user.UserService.GetUserProducts:input_type -> user.UserRequest
-	3, // 1: user.UserService.GetUserPreference:input_type -> user.UserRequest
-	0, // 2: user.UserService.UpdateUserPreference:input_type -> user.UpdatePreferenceRequest
-	2, // 3: user.UserService.AddUserProduct:input_type -> user.AddProductRequest
-	1, // 4: user.UserService.RemoveUserProduct:input_type -> user.RemoveProductRequest
-	4, // 5: user.UserService.GetUserProducts:output_type -> user.GetProductsResponse
-	5, // 6: user.UserService.GetUserPreference:output_type -> user.GetPreferenceResponse
-	8, // 7: user.UserService.UpdateUserPreference:output_type -> user.UpdatePreferenceResponse
-	6, // 8: user.UserService.AddUserProduct:output_type -> user.AddProductResponse
-	7, // 9: user.UserService.RemoveUserProduct:output_type -> user.RemoveProductResponse
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	4,  // 0: user.UserService.GetUserProducts:input_type -> user.UserRequest
+	4,  // 1: user.UserService.GetUserPreference:input_type -> user.UserRequest
+	2,  // 2: user.UserService.AddUserProduct:input_type -> user.AddProductRequest
+	1,  // 3: user.UserService.RemoveUserProduct:input_type -> user.RemoveProductRequest
+	0,  // 4: user.UserService.UpdateUserPreference:input_type -> user.UpdatePreferenceRequest
+	3,  // 5: user.UserService.RemoveUserPreference:input_type -> user.RemovePreferenceRequest
+	5,  // 6: user.UserService.GetUserProducts:output_type -> user.GetProductsResponse
+	6,  // 7: user.UserService.GetUserPreference:output_type -> user.GetPreferenceResponse
+	7,  // 8: user.UserService.AddUserProduct:output_type -> user.AddProductResponse
+	8,  // 9: user.UserService.RemoveUserProduct:output_type -> user.RemoveProductResponse
+	9,  // 10: user.UserService.UpdateUserPreference:output_type -> user.UpdatePreferenceResponse
+	10, // 11: user.UserService.RemoveUserPreference:output_type -> user.RemovePreferenceResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -528,7 +625,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

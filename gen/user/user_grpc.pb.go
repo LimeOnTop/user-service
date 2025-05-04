@@ -21,9 +21,10 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	UserService_GetUserProducts_FullMethodName      = "/user.UserService/GetUserProducts"
 	UserService_GetUserPreference_FullMethodName    = "/user.UserService/GetUserPreference"
-	UserService_UpdateUserPreference_FullMethodName = "/user.UserService/UpdateUserPreference"
 	UserService_AddUserProduct_FullMethodName       = "/user.UserService/AddUserProduct"
 	UserService_RemoveUserProduct_FullMethodName    = "/user.UserService/RemoveUserProduct"
+	UserService_UpdateUserPreference_FullMethodName = "/user.UserService/UpdateUserPreference"
+	UserService_RemoveUserPreference_FullMethodName = "/user.UserService/RemoveUserPreference"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -32,9 +33,10 @@ const (
 type UserServiceClient interface {
 	GetUserProducts(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*GetProductsResponse, error)
 	GetUserPreference(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*GetPreferenceResponse, error)
-	UpdateUserPreference(ctx context.Context, in *UpdatePreferenceRequest, opts ...grpc.CallOption) (*UpdatePreferenceResponse, error)
 	AddUserProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error)
 	RemoveUserProduct(ctx context.Context, in *RemoveProductRequest, opts ...grpc.CallOption) (*RemoveProductResponse, error)
+	UpdateUserPreference(ctx context.Context, in *UpdatePreferenceRequest, opts ...grpc.CallOption) (*UpdatePreferenceResponse, error)
+	RemoveUserPreference(ctx context.Context, in *RemovePreferenceRequest, opts ...grpc.CallOption) (*RemovePreferenceResponse, error)
 }
 
 type userServiceClient struct {
@@ -65,16 +67,6 @@ func (c *userServiceClient) GetUserPreference(ctx context.Context, in *UserReque
 	return out, nil
 }
 
-func (c *userServiceClient) UpdateUserPreference(ctx context.Context, in *UpdatePreferenceRequest, opts ...grpc.CallOption) (*UpdatePreferenceResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdatePreferenceResponse)
-	err := c.cc.Invoke(ctx, UserService_UpdateUserPreference_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *userServiceClient) AddUserProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AddProductResponse)
@@ -95,15 +87,36 @@ func (c *userServiceClient) RemoveUserProduct(ctx context.Context, in *RemovePro
 	return out, nil
 }
 
+func (c *userServiceClient) UpdateUserPreference(ctx context.Context, in *UpdatePreferenceRequest, opts ...grpc.CallOption) (*UpdatePreferenceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdatePreferenceResponse)
+	err := c.cc.Invoke(ctx, UserService_UpdateUserPreference_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) RemoveUserPreference(ctx context.Context, in *RemovePreferenceRequest, opts ...grpc.CallOption) (*RemovePreferenceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemovePreferenceResponse)
+	err := c.cc.Invoke(ctx, UserService_RemoveUserPreference_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
 	GetUserProducts(context.Context, *UserRequest) (*GetProductsResponse, error)
 	GetUserPreference(context.Context, *UserRequest) (*GetPreferenceResponse, error)
-	UpdateUserPreference(context.Context, *UpdatePreferenceRequest) (*UpdatePreferenceResponse, error)
 	AddUserProduct(context.Context, *AddProductRequest) (*AddProductResponse, error)
 	RemoveUserProduct(context.Context, *RemoveProductRequest) (*RemoveProductResponse, error)
+	UpdateUserPreference(context.Context, *UpdatePreferenceRequest) (*UpdatePreferenceResponse, error)
+	RemoveUserPreference(context.Context, *RemovePreferenceRequest) (*RemovePreferenceResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -120,14 +133,17 @@ func (UnimplementedUserServiceServer) GetUserProducts(context.Context, *UserRequ
 func (UnimplementedUserServiceServer) GetUserPreference(context.Context, *UserRequest) (*GetPreferenceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserPreference not implemented")
 }
-func (UnimplementedUserServiceServer) UpdateUserPreference(context.Context, *UpdatePreferenceRequest) (*UpdatePreferenceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserPreference not implemented")
-}
 func (UnimplementedUserServiceServer) AddUserProduct(context.Context, *AddProductRequest) (*AddProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUserProduct not implemented")
 }
 func (UnimplementedUserServiceServer) RemoveUserProduct(context.Context, *RemoveProductRequest) (*RemoveProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveUserProduct not implemented")
+}
+func (UnimplementedUserServiceServer) UpdateUserPreference(context.Context, *UpdatePreferenceRequest) (*UpdatePreferenceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserPreference not implemented")
+}
+func (UnimplementedUserServiceServer) RemoveUserPreference(context.Context, *RemovePreferenceRequest) (*RemovePreferenceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveUserPreference not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -186,24 +202,6 @@ func _UserService_GetUserPreference_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_UpdateUserPreference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdatePreferenceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).UpdateUserPreference(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_UpdateUserPreference_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).UpdateUserPreference(ctx, req.(*UpdatePreferenceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _UserService_AddUserProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddProductRequest)
 	if err := dec(in); err != nil {
@@ -240,6 +238,42 @@ func _UserService_RemoveUserProduct_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_UpdateUserPreference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePreferenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdateUserPreference(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UpdateUserPreference_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdateUserPreference(ctx, req.(*UpdatePreferenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_RemoveUserPreference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemovePreferenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).RemoveUserPreference(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_RemoveUserPreference_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).RemoveUserPreference(ctx, req.(*RemovePreferenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -256,16 +290,20 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetUserPreference_Handler,
 		},
 		{
-			MethodName: "UpdateUserPreference",
-			Handler:    _UserService_UpdateUserPreference_Handler,
-		},
-		{
 			MethodName: "AddUserProduct",
 			Handler:    _UserService_AddUserProduct_Handler,
 		},
 		{
 			MethodName: "RemoveUserProduct",
 			Handler:    _UserService_RemoveUserProduct_Handler,
+		},
+		{
+			MethodName: "UpdateUserPreference",
+			Handler:    _UserService_UpdateUserPreference_Handler,
+		},
+		{
+			MethodName: "RemoveUserPreference",
+			Handler:    _UserService_RemoveUserPreference_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

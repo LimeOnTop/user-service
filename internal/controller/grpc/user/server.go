@@ -47,6 +47,7 @@ func (s *UserServer) GetUserPreference(ctx context.Context, req *pb.UserRequest)
 
 	return response, nil
 }
+
 // UpdateUserPreference - метод для обновления предпочтений пользователя
 func (s *UserServer) UpdateUserPreference(ctx context.Context, req *pb.UpdatePreferenceRequest) (*pb.UpdatePreferenceResponse, error) {
 	err := s.user.UpdateUserPreference(req.AccessToken, req.PreferenceName)
@@ -60,6 +61,19 @@ func (s *UserServer) UpdateUserPreference(ctx context.Context, req *pb.UpdatePre
 
 	return response, nil
 }
+
+// RemoveUserPreference - метод для удаления предпочтений пользователя
+func (s *UserServer) RemoveUserPreference(ctx context.Context, req *pb.RemovePreferenceRequest) (*pb.RemovePreferenceResponse, error) {
+	err := s.user.RemoveUserPreference(req.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+	response := &pb.RemovePreferenceResponse{
+		Success: true,
+	}
+	return response, nil
+}
+
 // AddUserProduct - метод для добавления продукта пользователю
 func (s *UserServer) AddUserProduct(ctx context.Context, req *pb.AddProductRequest) (*pb.AddProductResponse, error) {
 	err := s.user.AddUserProduct(req.AccessToken, req.ProductName)
@@ -73,6 +87,7 @@ func (s *UserServer) AddUserProduct(ctx context.Context, req *pb.AddProductReque
 
 	return response, nil
 }
+
 // RemoveUserProduct - метод для удаления продукта у пользователя
 func (s *UserServer) RemoveUserProduct(ctx context.Context, req *pb.RemoveProductRequest) (*pb.RemoveProductResponse, error) {
 	err := s.user.RemoveUserProduct(req.AccessToken, req.ProductName)

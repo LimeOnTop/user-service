@@ -15,6 +15,7 @@ var (
 	ErrProductAlreadyExists   = errors.New("product already exists")
 	ErrQueryFailed            = errors.New("query failed")
 	ErrNoRows                 = errors.New("no rows in result")
+	ErrAddUserFailed          = errors.New("add user failed")
 )
 
 var _ Repository = (*repository)(nil)
@@ -26,6 +27,8 @@ type Repository interface {
 	GetPreference(ctx context.Context, userId string) (string, error)
 	// UpdatePreference - обновить предпочтения пользователя
 	UpdatePreference(ctx context.Context, userId string, preferenceName string) (error)
+	// RemovePreference - удалить предпочтения пользователя
+	RemovePreference(ctx context.Context, userId string) (error)
 	// AddProduct - добавить продукт пользователю
 	AddProduct(ctx context.Context, userId string, productName string) (error)
 	// RemoveProduct - удалить продукт у пользователя
@@ -69,11 +72,29 @@ func (r *repository) GetPreference(ctx context.Context, userId string) (string, 
 }
 
 func (r *repository) UpdatePreference(ctx context.Context, userId string, preferenceName string) (error) {
-	query := `UPDATE user_preference SET preference_name = $1 WHERE user_id = $2`
+	query := `SELECT user_id FROM user_preference WHERE user_id = $1`
+	err := r.db.QueryRow(ctx, query, userId)
+	if err != nil {
+		query = `INSERT INTO user_preference (user_id, preference_name) VALUES ($1, $2)`
+		if _, err := r.db.Exec(ctx, query, userId, preferenceName); err != nil {
+			return ErrAddUserFailed
+		}
+		return nil
+	}
+	query = `UPDATE user_preference SET preference_name = $1 WHERE user_id = $2`
 	if _, err := r.db.Exec(ctx, query, preferenceName, userId); err != nil {
 		return ErrPreferenceUpdateFailed
 	}
 	log.Println("Preference updated successfully")
+	return nil
+}
+
+func (r *repository) RemovePreference(ctx context.Context, userId string) (error) {
+	query := `DELETE FROM user_preference WHERE user_id = $1`
+	if _, err := r.db.Exec(ctx, query, userId); err != nil {
+		return ErrPreferenceNotFound
+	}
+	log.Println("Preference removed successfully")
 	return nil
 }
 

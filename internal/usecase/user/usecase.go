@@ -25,6 +25,8 @@ type UserUseCase interface {
 	GetUserPreference(accessToken string) (preferenceName string, err error)
 	// UpdateUserPreference - обновить предпочтения пользователя
 	UpdateUserPreference(accessToken string, preferenceName string) (err error)
+	// RemoveUserPreference - удалить предпочтения пользователя
+	RemoveUserPreference(accessToken string) (err error)
 	// AddUserProduct - добавить продукт пользователю
 	AddUserProduct(accessToken string, productName string) (err error)
 	// RemoveUserProduct - удалить продукт у пользователя
@@ -80,6 +82,19 @@ func (u *user) UpdateUserPreference(accessToken string, preferenceName string) (
 	err = u.userRepo.UpdatePreference(context.Background(), userId.String(), preferenceName)
 
 	return err
+}
+
+func (u *user) RemoveUserPreference(accessToken string) (err error) {
+	userId, err := u.extractUserIdFromToken(accessToken)
+	if err != nil {
+		return err
+	}
+	err = u.userRepo.RemovePreference(context.Background(), userId.String())
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (u *user) AddUserProduct(accessToken string, productName string) (err error) {

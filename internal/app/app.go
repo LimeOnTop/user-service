@@ -54,8 +54,8 @@ func Run(cfg *config.Config, devMode bool) {
 		grpc.UnaryInterceptor(grpcLogUnaryInterceptor),
 	)
 
-	// Создаем и регистрируем gRPC-сервис Auth
-	userController := grpcauth.New(userUseCase)
+	// Создаем и регистрируем gRPC-сервис User
+	userController := grpcuser.New(userUseCase)
 	user.RegisterUserServiceServer(grpcServer, userController)
 
 	// Слушаем порт gRPC
